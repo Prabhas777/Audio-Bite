@@ -1,0 +1,3 @@
+{
+  "routes": [{ "src": "/v/[^.]+", "dest": "/index.html", "status": 200 }]
+}

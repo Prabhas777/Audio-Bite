@@ -1,0 +1,490 @@
+:root {
+  --bg-color: #fff;
+  --color: #111;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding-top: 80px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+  font-family: "Roboto", sans-serif;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+}
+
+.loading {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading.active {
+  display: flex;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 25%);
+  background-color: var(--bg-color);
+  z-index: 10;
+  color: var(--color);
+}
+
+nav .logo-holder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 100%;
+}
+
+nav .logo-holder img {
+  width: 60%;
+}
+
+nav .search-bar {
+  height: 100%;
+  flex: 1;
+  position: relative;
+}
+
+nav .search-bar form {
+  height: 100%;
+  display: grid;
+  padding: 20px 0;
+  grid-template-columns: 1fr 50px;
+}
+
+nav .search-bar .search-results {
+  width: 100%;
+  position: absolute;
+  top: 80px;
+  left: 0;
+  background-color: var(--bg-color);
+  box-shadow: 0 1px 4px rgb(0 0 0 / 25%);
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+nav .search-results.active .search-result {
+  display: flex;
+}
+
+nav .search-results.active .search-result:last-child {
+  border-bottom: none;
+}
+
+nav .search-result.hidden {
+  display: none !important;
+}
+
+nav .search-result {
+  padding: 10px 20px;
+  height: 100px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid #000;
+  cursor: pointer;
+}
+
+
+nav .search-result img {
+  height: 100%;
+}
+
+nav .search-result .title {
+  margin-left: 20px;
+  flex: 1;
+}
+
+nav .search-bar input {
+  border: none;
+  padding: 0 10px;
+  font-size: 16px;
+  border-bottom: 1px solid #000;
+}
+
+nav .search-bar input:focus {
+  outline: none;
+}
+
+nav .search-bar button {
+  background-color: var(--bg-color);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+nav .search-bar button svg {
+  width: 50%;
+}
+
+nav p {
+  padding: 0 35px;
+}
+
+.music-body {
+  width: 28%;
+  min-width: 300px;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 5px 10px rgb(0 0 0 / 12%);
+}
+
+@media screen and (max-width: 300px) {
+  .music-body {
+    width: 90%;
+    min-width: 90%;
+  }
+}
+
+.music-body .thumbnail-holder {
+  position: relative;
+  line-height: 0;
+  overflow: hidden;
+}
+
+.music-body .thumbnail-holder img {
+  width: 100%;
+}
+
+.music-body .thumbnail-holder span {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-bottom-left-radius: 4px;
+  padding: 15px 10px;
+  color: #fff;
+  font-weight: 500;
+  background-color: #1abc9c;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.music-body .thumbnail-holder span+.bio {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1abc9c;
+  transition: all 0.25s ease-in-out;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.music-body .thumbnail-holder span:hover+.bio {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+}
+
+.music-body .thumbnail-holder span+.bio p {
+  transition: opacity 0.125s ease-in-out;
+  opacity: 0;
+}
+
+.music-body .thumbnail-holder span:hover+.bio p {
+  opacity: 1;
+  transition: opacity 0.125s ease-in-out 0.125s;
+}
+
+.music-body .progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: grey;
+  cursor: pointer;
+  z-index: 2;
+  transition: top 0.25s ease-in-out;
+}
+
+.music-body .progress-bar .inner {
+  height: 5px;
+  background-image: -webkit-linear-gradient(left, #d35400, #f1c40f);
+  transition: height 0.25s ease-in-out;
+  cursor: pointer;
+  pointer-events: none;
+}
+
+.music-body .progress-bar:hover {
+  top: -5px;
+}
+
+.music-body .progress-bar:hover .inner {
+  height: 10px;
+}
+
+.music-body .music-data {
+  position: relative;
+  padding: 40px 20px 20px;
+}
+
+.music-body .music-data .time-stamp {
+  font-family: "Merriweather Sans", sans-serif;
+  color: #6d7173;
+  margin-bottom: 10px;
+}
+
+.music-body .music-data .song-name {
+  color: var(--color);
+  font-size: 20px;
+  text-shadow: white 1px 1px 0;
+  font-weight: 500;
+  margin: 15px 0;
+}
+
+.play-buttons {
+  transform: scale(0.4);
+  height: 70px;
+}
+
+.music-body .play-buttons button {
+  border: none;
+  display: block;
+  margin: 0 auto;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.music-body .play-buttons button svg {
+  margin: 0px auto;
+  display: block;
+}
+
+/* This animates the circle when it switches to play */
+#circle {
+  transition: stroke-dashoffset 300ms ease-in;
+  stroke-dashoffset: 0;
+  fill: none;
+}
+
+#circle.play {
+  stroke-dashoffset: 314;
+}
+
+.query-results {
+  position: absolute;
+  display: none;
+  top: 60px;
+  padding: 10px 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+}
+
+.query-results.active {
+  display: block;
+}
+
+.query-results .query {
+  padding: 5px 10px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  display: block;
+  font-size: 14px;
+}
+
+.query-results .query:hover {
+  background-color: #ccc;
+}
+
+.query-results .query:focus {
+  background-color: #ccc;
+  border: 1px solid #111;
+}
+
+
+.recommendations {
+  overflow-y: scroll;
+  width: 100vw;
+  margin-right: 1rem;
+  padding-right: 5px;
+  position: relative;
+  display: none;
+  padding: 0 1rem;
+}
+
+.recommendations .recomm-result {
+  padding-bottom: 10px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  position: relative;
+  background-color: var(--bg-color);
+}
+
+.recommendations .recomm-result:not(:first-child) {
+  margin-left: 2rem
+}
+
+.recommendations .recomm-result.hidden {
+  display: none;
+}
+
+
+.recommendations .recomm-result img {
+  /* width: 100%; */
+  border-radius: 10px;
+  height: 10rem;
+}
+
+.recommendations .recomm-result .title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  padding-right: 2rem;
+}
+
+.recommendations .recomm-result .queue-edit {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 1rem;
+  margin: 1rem 0;
+}
+
+.recommendations .recomm-result .queue-edit button {
+  padding: 6px;
+  cursor: pointer;
+  background-color: #1abc9c;
+  border: none;
+  color: #fff;
+  font-family: inherit;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.recommendations .recomm-result .queue-edit button:hover {
+  background-color: #15967d;
+}
+
+.main-body {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-around;
+}
+
+
+.play-queue {
+  width: 45%;
+  min-width: 300px;
+  border-radius: 4px;
+  overflow: hidden;
+  padding: 20px 0;
+  font-weight: 400;
+  box-shadow: 0 5px 10px rgb(0 0 0 / 12%);
+}
+
+.play-queue h3 {
+  margin-bottom: 1rem;
+  padding: 0 20px;
+}
+
+.play-queue .queue-items {
+  overflow-y: scroll;
+  height: 100%;
+  max-height: 30vh;
+}
+
+.play-queue .queue-items .queue-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 5px 20px;
+}
+
+.play-queue .queue-items .queue-item .info {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.play-queue .queue-items .queue-item :where(.remove, .drag) {
+  cursor: pointer;
+  background-color: #fff;
+  border: none;
+}
+
+.play-queue .queue-items .queue-item .remove {
+  scale: 0.4;
+}
+
+.play-queue .queue-items .queue-item.hidden {
+  display: none;
+}
+
+.play-queue .queue-items .queue-item:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+div.jc-bs3-container.container {
+  width: fit-content;
+  margin: 0 auto;
+}
